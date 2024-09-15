@@ -2,59 +2,134 @@ package eternal.walnut.reimu;
 
 import java.awt.*;
 import java.io.File;
-import java.util.Arrays;
+import java.util.*;
+import java.util.List;
 
 public class DataReader {
-    private static final File resolutions = new File("resolution", GlobalVars.reimuConfig.resolution + ".ini");
+    public static String resolution = "";
     // Weapon Slot Pixels
-    public static final Integer[] WEAPON_1_PIXELS = loadPixel("weapon1");
-    public static final Integer[] WEAPON_2_PIXELS = loadPixel("weapon2");
+    public static Integer[] WEAPON_1_PIXELS;
+    public static Integer[] WEAPON_2_PIXELS;
     // Weapon Type Pixels
-
     // Light
-    public static final Integer[] R301_PIXELS = loadPixel("r301");
-    public static final Integer[] ALTERNATOR_PIXELS = loadPixel("alternator");
-    public static final Integer[] RE45_PIXELS = loadPixel("re45");
-    public static final Integer[] SPITFIRE_PIXELS = loadPixel("spitfire");
-    public static final Integer[] G7_PIXELS = loadPixel("g7");
+    public static Integer[] R301_PIXELS;
+    public static Integer[] ALTERNATOR_PIXELS;
+    public static Integer[] RE45_PIXELS;
+    public static Integer[] SPITFIRE_PIXELS;
+    public static Integer[] G7_PIXELS;
     // Heavy
-    public static final Integer[] FLATLINE_PIXELS = loadPixel("flatline");
-    public static final Integer[] CAR_PIXELS = loadPixel("car");
-    public static final Integer[] HEMLOK_PIXELS = loadPixel("hemlok");
-    public static final Integer[] RAMPAGE_PIXELS = loadPixel("rampage");
-    public static final Integer[] P3030_PIXELS = loadPixel("p3030");
-    public static final Integer[] PROWLER_PIXELS = loadPixel("prowler");
+    public static Integer[] FLATLINE_PIXELS;
+    public static Integer[] CAR_PIXELS;
+    public static Integer[] HEMLOK_PIXELS;
+    public static Integer[] RAMPAGE_PIXELS;
+    public static Integer[] P3030_PIXELS;
+    public static Integer[] PROWLER_PIXELS;
     // ENERGY
-    public static final Integer[] VOLT_PIXELS = loadPixel("volt");
-    public static final Integer[] HAVOC_PIXELS = loadPixel("havoc");
-    public static final Integer[] LSTAR_PIXELS = loadPixel("lstar");
-    public static final Integer[] NEMESIS_PIXELS = loadPixel("nemesis");
+    public static Integer[] VOLT_PIXELS;
+    public static Integer[] HAVOC_PIXELS;
+    public static Integer[] LSTAR_PIXELS;
+    public static Integer[] NEMESIS_PIXELS;
     // SUPPY DROP
-    public static final Integer[] DEVOTION_PIXELS = loadPixel("devotion");
-    public static final Integer[] R99_PIXELS = loadPixel("r99");
+    public static Integer[] DEVOTION_PIXELS;
+    public static Integer[] R99_PIXELS;
     // Rampage
-    public static final Integer[] RAMPAGE_AMP_PIXELS = loadPixel("rampage_amp");
+    public static Integer[] RAMPAGE_AMP_PIXELS;
     // NEMESIS
-    public static final Integer[] NEMESIS_FULL_CHARGE_PIXELS = loadPixel("nemesis_full_charge");
+    public static Integer[] NEMESIS_FULL_CHARGE_PIXELS;
     // TURBOCHARGER
-    public static final Integer[] HAVOC_TURBOCHARGER_PIXELS = loadPixel("havoc_turbocharger");
+    public static Integer[] HAVOC_TURBOCHARGER_PIXELS;
     // SELECTIVE
-    public static final Integer[] SINGLE_MODE_PIXELS = loadPixel("single_mode");
-    public static final Integer[] SELECTIVE_FIRE_CAN_FIRE_PIXELS = loadPixel("selective_fire_weapon_can_fire");
+    public static Integer[] SINGLE_MODE_PIXELS;
+    public static Integer[] SELECTIVE_FIRE_CAN_FIRE_PIXELS;
+    // Weapon Pattern
+    public static Map<String, List<String>> PATTERNS = readPatterns();
 
     // Color
     private static final File colorData = new File("weapon_color.ini");
-    public static final String LIGHT_WEAPON_COLOR = loadColor("light");
-    public static final String HEAVY_WEAPON_COLOR = loadColor("heavy");
-    public static final String ENERGY_WEAPON_COLOR = loadColor("energy");
-    public static final String SUPPY_DROP_COLOR_NORMAL = loadColor("suppy_drop_normal");
-    public static final String SUPPY_DROP_COLOR_PROTANOPIA = loadColor("suppy_drop_protanopia");
-    public static final String SUPPY_DROP_COLOR_DEUTERANOPIA = loadColor("suppy_drop_deuteranopia");
-    public static final String SUPPY_DROP_COLOR_TRITANOPIA = loadColor("suppy_drop_tritanopia");
-    public static final String SHOTGUN_WEAPON_COLOR = loadColor("shotgun");
-    public static final String SNIPER_WEAPON_COLOR = loadColor("sniper");
-    public static final String SELLA_WEAPON_COLOR = loadColor("sella");
-    public static final String SELECTIVE_FIRE_CAN_FIRE_COLOR = loadColor("selective_fire_weapon_can_fire");
+    public static String LIGHT_WEAPON_COLOR ;
+    public static String HEAVY_WEAPON_COLOR;
+    public static String ENERGY_WEAPON_COLOR;
+    public static String SUPPY_DROP_COLOR_NORMAL;
+    public static String SUPPY_DROP_COLOR_PROTANOPIA ;
+    public static String SUPPY_DROP_COLOR_DEUTERANOPIA;
+    public static String SUPPY_DROP_COLOR_TRITANOPIA;
+    public static String SHOTGUN_WEAPON_COLOR;
+    public static String SNIPER_WEAPON_COLOR;
+    public static String SELLA_WEAPON_COLOR;
+    public static String SELECTIVE_FIRE_CAN_FIRE_COLOR;
+
+    private static Map<String, List<String>> readPatterns() {
+        File[] patterns = new File("pattern").listFiles();
+        if (patterns == null || patterns.length == 0) {
+            System.err.println("Failed to find patterns!");
+            return null;
+        }
+
+        Map<String, List<String>> patternMap = new HashMap<>();
+
+        for (File pattern : patterns) {
+            List<String> patternContent = FileUtils.readList(pattern);
+            if (patternContent.isEmpty())
+                continue;
+
+            patternMap.put(pattern.getName().replace(".txt", ""), patternContent);
+        }
+
+        return patternMap;
+    }
+
+    public static void reload() {
+        // Weapon Slot Pixels
+        WEAPON_1_PIXELS = loadPixel("weapon1");
+        WEAPON_2_PIXELS = loadPixel("weapon2");
+        // Weapon Type Pixels
+        // Light
+        R301_PIXELS = loadPixel("r301");
+        ALTERNATOR_PIXELS = loadPixel("alternator");
+        RE45_PIXELS = loadPixel("re45");
+        SPITFIRE_PIXELS = loadPixel("spitfire");
+        G7_PIXELS = loadPixel("g7");
+        // Heavy
+        FLATLINE_PIXELS = loadPixel("flatline");
+        CAR_PIXELS = loadPixel("car");
+        HEMLOK_PIXELS = loadPixel("hemlok");
+        RAMPAGE_PIXELS = loadPixel("rampage");
+        P3030_PIXELS = loadPixel("p3030");
+        PROWLER_PIXELS = loadPixel("prowler");
+        // ENERGY
+        VOLT_PIXELS = loadPixel("volt");
+        HAVOC_PIXELS = loadPixel("havoc");
+        LSTAR_PIXELS = loadPixel("lstar");
+        NEMESIS_PIXELS = loadPixel("nemesis");
+        // SUPPY DROP
+        DEVOTION_PIXELS = loadPixel("devotion");
+        R99_PIXELS = loadPixel("r99");
+        // Rampage
+        RAMPAGE_AMP_PIXELS = loadPixel("rampage_amp");
+        // NEMESIS
+        NEMESIS_FULL_CHARGE_PIXELS = loadPixel("nemesis_full_charge");
+        // TURBOCHARGER
+        HAVOC_TURBOCHARGER_PIXELS = loadPixel("havoc_turbocharger");
+        // SELECTIVE
+        SINGLE_MODE_PIXELS = loadPixel("single_mode");
+        SELECTIVE_FIRE_CAN_FIRE_PIXELS = loadPixel("selective_fire_weapon_can_fire");
+        // Color
+        LIGHT_WEAPON_COLOR = loadColor("light");
+        HEAVY_WEAPON_COLOR = loadColor("heavy");
+        ENERGY_WEAPON_COLOR = loadColor("energy");
+        SUPPY_DROP_COLOR_NORMAL = loadColor("suppy_drop_normal");
+        SUPPY_DROP_COLOR_PROTANOPIA = loadColor("suppy_drop_protanopia");
+        SUPPY_DROP_COLOR_DEUTERANOPIA = loadColor("suppy_drop_deuteranopia");
+        SUPPY_DROP_COLOR_TRITANOPIA = loadColor("suppy_drop_tritanopia");
+        SHOTGUN_WEAPON_COLOR = loadColor("shotgun");
+        SNIPER_WEAPON_COLOR = loadColor("sniper");
+        SELLA_WEAPON_COLOR = loadColor("sella");
+        SELECTIVE_FIRE_CAN_FIRE_COLOR = loadColor("selective_fire_weapon_can_fire");
+    }
+
+    private static File makeResolutionFile() {
+        return new File("resolution", resolution + ".ini");
+    }
 
     private static String read(File file, String key) {
         String data = FileUtils.read(file);
@@ -64,12 +139,12 @@ public class DataReader {
     }
 
     private static Integer[] loadPixel(String key) {
-        String data = read(resolutions, key.toLowerCase());
+        String data = read(makeResolutionFile(), key.toLowerCase());
         if (data.isEmpty()) {
             System.out.println("Pixel " + key + " Not found!");
             return new Integer[0];
         }
-        return Arrays.stream(read(resolutions, key.toLowerCase()).split(",")).map(Integer::valueOf).toArray(Integer[]::new);
+        return Arrays.stream(read(makeResolutionFile(), key.toLowerCase()).split(",")).map(Integer::valueOf).toArray(Integer[]::new);
     }
 
     private static String loadColor(String key) {
@@ -129,6 +204,9 @@ public class DataReader {
 
     public static boolean isSella()
     {
+        if (WEAPON_2_PIXELS == null)
+            return false;
+
         Color check_weapon2_color = Core.getScreenPixel(WEAPON_2_PIXELS[0], WEAPON_2_PIXELS[1]);
         String hex = "0x" + String.format("%02x%02x%02x", check_weapon2_color.getBlue(), check_weapon2_color.getGreen(), check_weapon2_color.getRed()).toUpperCase();
         return hex.equals(SELLA_WEAPON_COLOR);

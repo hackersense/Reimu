@@ -2,6 +2,7 @@ package eternal.walnut.reimu;
 
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
+import eternal.walnut.reimu.jna.JNA;
 
 public class GlobalKeyListener implements NativeKeyListener {
     @Override
@@ -23,16 +24,19 @@ public class GlobalKeyListener implements NativeKeyListener {
                 Thread.sleep(100);
                 Core.DetectAndSetWeapon();
             } else if (nativeEvent.getKeyCode() == GlobalVars.reimuConfig.handKey) {
+                Core.stopDetect = true;
                 Core.Reset();
             } else if (nativeEvent.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
                 Thread.sleep(150);
                 Core.DetectAndSetWeapon();
             } else if (nativeEvent.getKeyCode() == GlobalVars.reimuConfig.skillKey) {
-                Thread.sleep(300);
-                if (DataReader.isSella())
-                    Core.weapon = "Sella";
-                else
-                    Core.Reset();
+                if (JNA.isApexLegendsActive()) {
+                    Thread.sleep(300);
+                    if (DataReader.isSella())
+                        Core.weapon = "Sella";
+                    else
+                        Core.Reset();
+                }
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -46,6 +50,7 @@ public class GlobalKeyListener implements NativeKeyListener {
                 Thread.sleep(300);
                 Core.DetectAndSetWeapon();
             } else if (nativeEvent.getKeyCode() == GlobalVars.reimuConfig.grenadeKey) {
+                Core.stopDetect = true;
                 Core.Reset();
             }
         } catch (InterruptedException e) {

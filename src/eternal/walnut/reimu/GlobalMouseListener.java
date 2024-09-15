@@ -6,7 +6,17 @@ import com.github.kwhat.jnativehook.mouse.NativeMouseListener;
 public class GlobalMouseListener implements NativeMouseListener {
     @Override
     public void nativeMousePressed(NativeMouseEvent nativeEvent) {
-        if (nativeEvent.getButton() == 1)
-            Core.start();
+        if (nativeEvent.getButton() == 1) {
+            Core.pressingLeftMouse = true;
+            synchronized (Core.class) {
+                Core.start();
+            }
+        }
+    }
+
+    @Override
+    public void nativeMouseReleased(NativeMouseEvent nativeEvent) {
+        if (!Core.stopDetect && nativeEvent.getButton() != 1)
+            Core.DetectAndSetWeapon();
     }
 }

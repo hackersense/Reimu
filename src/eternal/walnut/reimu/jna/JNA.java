@@ -3,7 +3,8 @@ package eternal.walnut.reimu.jna;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Structure;
-import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.WString;
+import com.sun.jna.platform.win32.*;
 import com.sun.jna.win32.StdCallLibrary;
 import com.sun.jna.win32.W32APIOptions;
 
@@ -38,6 +39,12 @@ public class JNA {
     public interface User32Call extends StdCallLibrary {
         User32Call INSTANCE = Native.load("user32", User32Call.class, W32APIOptions.DEFAULT_OPTIONS);
 
+        WinUser.HHOOK SetWindowsHookEx(int idHook, WinUser.HOOKPROC lpfn, WinDef.HINSTANCE hMod, int dwThreadId);
+        WinDef.LRESULT CallNextHookEx(WinUser.HHOOK hhk, int nCode, WinDef.WPARAM wParam, WinDef.LPARAM lParam);
+        WinDef.LRESULT UnhookWindowsHookEx(WinUser.HHOOK hhk);
+        int GetMessage(WinUser.MSG lpMsg, WinDef.HWND hWnd, int wMsgFilterMin, int wMsgFilterMax);
+        boolean TranslateMessage(WinUser.MSG lpMsg);
+        WinDef.LRESULT DispatchMessage(WinUser.MSG lpMsg);
         boolean GetCursorInfo(CURSORINFO cursorInfo);
         short GetKeyState(int nVirtKey);
         short GetAsyncKeyState(int nVirtKey);
@@ -64,5 +71,6 @@ public class JNA {
         GDI32 INSTANCE = Native.load("gdi32", GDI32.class);
 
         int GetPixel(WinDef.HDC hdc, int nXPos, int nYPos);
+        boolean TextOutW(WinDef.HDC hdc, int x, int y, WString lpString, int nCount);
     }
 }

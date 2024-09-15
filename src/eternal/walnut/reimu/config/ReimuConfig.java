@@ -3,8 +3,8 @@ package eternal.walnut.reimu.config;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 
 public class ReimuConfig {
-    public String resolution = "1920x1200";
     public float sens = 4f;
+    public boolean debug = false;
     public int exitApp = NativeKeyEvent.VC_END;
     public int switchMode = NativeKeyEvent.VC_B;
     public int reloadWeapon = NativeKeyEvent.VC_R;
