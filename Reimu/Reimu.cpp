@@ -4,7 +4,6 @@
 #include "Core.h"
 #include "GlobalVars.h"
 #include "DataReader.h"
-#include "HTTPUtils.h"
 
 #define isKeyPressed(VK) ((GetAsyncKeyState(VK) & 0x8000) != 0)
 #define REIMU_VERSION "v8.0"
@@ -165,45 +164,6 @@ void adjustPrivileges()
     }
 }
 
-std::string clearAllSpace(std::string str) noexcept
-{
-    int index = 0;
-    if (!str.empty())
-        while ((index = str.find(' ', index)) != std::string::npos)
-            str.erase(index, 1);
-
-    return str;
-}
-
-std::vector<std::string> split(const std::string& str, std::string sp_string) noexcept
-{
-    std::vector<std::string> vecString;
-    int sp_stringLen = sp_string.size();
-    int lastPosition = 0;
-    int index = -1;
-    while (-1 != (index = str.find(sp_string, lastPosition)))
-    {
-        vecString.push_back(str.substr(lastPosition, index - lastPosition));
-        lastPosition = index + sp_stringLen;
-    }
-    std::string lastStr = str.substr(lastPosition);
-    if (!lastStr.empty())
-        vecString.push_back(lastStr);
-    return vecString;
-}
-
-std::string replaceAll(const std::string& str, std::string org_str, std::string rep_str) noexcept
-{
-    std::vector<std::string> delimVec = split(str, org_str);
-    if (delimVec.size() <= 0)
-        return str;
-    std::string target("");
-    std::vector<std::string>::iterator it = delimVec.begin();
-    for (; it != delimVec.end(); ++it)
-        target = target + (*it) + rep_str;
-    return target;
-}
-
 ReimuConfig GlobalVars::reimuConfig;
 
 int main()
@@ -213,9 +173,6 @@ int main()
 
     if (!SetPriorityClass(GetCurrentProcess(), REALTIME_PRIORITY_CLASS))
         std::cerr << "Failed to set process priority.\n";
-
-    if (clearAllSpace(replaceAll(HTTPUtils::get("https://fastly.jsdelivr.net/gh/HackerSense/Reimu-Data@main/allow"), "\n", "")) != "true")
-        return EXIT_SUCCESS;
 
     std::cout << R"(%@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%*=-::--=+++**++++++++*#%%%**-.*@@=:@@@@@
 @@@@@@@@@@@%%##***+++++++++****##%%%@@@@@@@@@@@@@@@@@@@@%+-::-=++*******++++++++++++*%#*= +@*.+@@@@@
