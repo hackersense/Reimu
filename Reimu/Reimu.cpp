@@ -146,36 +146,8 @@ void HookThread() {
     UnhookWindowsHookEx(hMouseHook);
 }
 
-static HHOOK hHook;
-static HMODULE hMod;
-
-void exit() {
-    if (hHook)
-        UnhookWindowsHookEx(hHook);
-    if (hMod)
-        FreeLibrary(hMod);
-}
-
 void HideConsoleThread() {
     FreeConsole();
-    SYSTEM_INFO systemInfo;
-    GetNativeSystemInfo(&systemInfo);
-    if (systemInfo.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64 || systemInfo.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_IA64) {
-        hMod = LoadLibraryA("hyde64.dll");
-        if (hMod) {
-            hHook = SetWindowsHookEx(5, (HOOKPROC)GetProcAddress(hMod, "CBProc"), hMod, 0);
-            if (hHook)
-                atexit(exit);
-        }
-    }
-    else if (systemInfo.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_INTEL) {
-        hMod = LoadLibraryA("hyde.dll");
-        if (hMod) {
-            hHook = SetWindowsHookEx(5, (HOOKPROC)GetProcAddress(hMod, "CBProc"), hMod, 0);
-            if (hHook)
-                atexit(exit);
-        }
-    }
 }
 
 void adjustPrivileges()
