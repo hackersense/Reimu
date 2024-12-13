@@ -56,7 +56,6 @@ void Core::moveMouse(int x, int y) {
     int sensY = static_cast<int>(std::round(y * sens));
     if (GlobalVars::reimuConfig.debug)
         std::cout << sensX << " / " << sensY << " / isADS: " << adsState << std::endl;
-    //mouse_event(MOUSEEVENTF_MOVE, sensX, sensY, 0, 0);
     INPUT input = {0};
     input.type = INPUT_MOUSE;
     input.mi.dx = sensX;
@@ -265,7 +264,6 @@ void Core::start() {
 
     if (weapon == "Havoc")
         highPrecisionSleep(400000000);
-        //Sleep(400);
 
     std::vector<std::string> patternContent = DataReader::PATTERNS.at(currentWeapon);
     if (patternContent.empty()) {
@@ -309,20 +307,6 @@ Color Core::getScreenPixel(int x, int y) {
     if (!hdc)
         return COLOR_EMPTY;
 
-    /*RECT targetRect;
-    GetClientRect(foregroundHwnd, &targetRect);
-
-    POINT topLeft = { targetRect.left, targetRect.top };
-    POINT bottomRight = { targetRect.right, targetRect.bottom };
-
-    ClientToScreen(foregroundHwnd, &topLeft);
-    ClientToScreen(foregroundHwnd, &bottomRight);
-
-    RECT resultRect{ topLeft.x, topLeft.y, bottomRight.x, bottomRight.y };
-
-    float dpi = GetDpiForWindow(foregroundHwnd) / 96.0f;
-    //int windowX = std::round(x + (resultRect.left * dpi));
-    //int windowY = std::round(y + (resultRect.top * dpi));*/
     CoordToScreen(x, y);
 
     COLORREF pixelColor = GetPixel(hdc, x, y);
