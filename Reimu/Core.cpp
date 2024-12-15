@@ -243,10 +243,10 @@ static void highPrecisionSleep(long long nanoseconds) {
     LARGE_INTEGER start, end;
     QueryPerformanceFrequency(&frequency);
     QueryPerformanceCounter(&start);
-    long long target = nanoseconds;
+    int64_t target = nanoseconds;
     while (true) {
         QueryPerformanceCounter(&end);
-        long long elapsed = (end.QuadPart - start.QuadPart) * 1000000000 / frequency.QuadPart;
+        int64_t elapsed = (end.QuadPart - start.QuadPart) * 1000000000 / frequency.QuadPart;
         if (elapsed >= target)
             break;
     }
