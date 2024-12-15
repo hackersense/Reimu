@@ -24,9 +24,6 @@
     <ClCompile Include="DataReader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="HTTPUtils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileUtils.h">
@@ -42,9 +39,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DataReader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="HTTPUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">

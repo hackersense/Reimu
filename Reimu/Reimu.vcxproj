@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DataReader.cpp" />
-    <ClCompile Include="HTTPUtils.cpp" />
     <ClCompile Include="Reimu.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,7 +148,6 @@
     <ClInclude Include="DataReader.h" />
     <ClInclude Include="FileUtils.h" />
     <ClInclude Include="GlobalVars.h" />
-    <ClInclude Include="HTTPUtils.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
