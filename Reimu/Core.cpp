@@ -77,7 +77,7 @@ void Core::reset() {
     adsState = false;
 }
 
-void CoordToScreen(int& aX, int& aY) {
+static void CoordToScreen(int& aX, int& aY) {
     HWND active_window = GetForegroundWindow();
     if (active_window && !IsIconic(active_window))
     {
@@ -146,7 +146,8 @@ void Core::detectWeapon() {
         if (DataReader::isValidWeaponColor(weapon2)) {
             weaponColorHex = DataReader::toHex(weapon2);
             weaponColor = weapon2;
-        } else {
+        }
+        else {
             weapon = "";
             return;
         }
@@ -170,7 +171,8 @@ void Core::detectWeapon() {
         }
         else if (DataReader::checkWeapon(DataReader::SPITFIRE_PIXELS)) {
             weapon = "Spitfire";
-        } else weapon = "";
+        }
+        else weapon = "";
     }
     else if (weaponColorHex == DataReader::HEAVY_WEAPON_COLOR) {
         if (DataReader::checkWeapon(DataReader::RAMPAGE_PIXELS)) {
@@ -190,37 +192,40 @@ void Core::detectWeapon() {
         }
         else if (DataReader::checkWeapon(DataReader::P3030_PIXELS)) {
             weapon = "3030";
-        } else weapon = "";
+        }
+        else weapon = "";
     }
     else if (weaponColorHex == DataReader::ENERGY_WEAPON_COLOR) {
         if (DataReader::checkWeapon(DataReader::VOLT_PIXELS)) {
             weapon = "Volt";
         }
-        else if (DataReader::checkWeapon(DataReader::HAVOC_PIXELS)) {
-            if (DataReader::checkTurbocharger(DataReader::HAVOC_TURBOCHARGER_PIXELS))
-                weapon = "HavocTurbo";
-            else
-                weapon = "Havoc";
+        else if (DataReader::checkWeapon(DataReader::DEVOTION_PIXELS)) {
+            weapon = "Devotion";
         }
         else if (DataReader::checkWeapon(DataReader::LSTAR_PIXELS)) {
             weapon = "Lstar";
         }
         else if (DataReader::checkWeapon(DataReader::NEMESIS_PIXELS)) {
             weapon = "Nemesis";
-        } else weapon = "";
+        }
+        else weapon = "";
     }
     else if (DataReader::checkSuppyDropColor(weaponColor)) {
-        if (DataReader::checkWeapon(DataReader::DEVOTION_PIXELS)) {
-            weapon = "DevotionTurbo";
+        if (DataReader::checkWeapon(DataReader::HAVOC_PIXELS)) {
+            //if (DataReader::checkTurbocharger(DataReader::HAVOC_TURBOCHARGER_PIXELS))
+            //    weapon = "HavocTurbo";
+            //else
+            weapon = "HavocTurbo";
         }
         else if (DataReader::checkWeapon(DataReader::R99_PIXELS)) {
             weapon = "R99";
-        } else weapon = "";
+        }
+        else weapon = "";
     }
     else weapon = "";
 }
 
-std::vector<std::string> split(const std::string& str, char delimiter) {
+static std::vector<std::string> split(const std::string& str, char delimiter) {
     std::vector<std::string> tokens;
     std::string token;
     std::stringstream tokenStream(str);
