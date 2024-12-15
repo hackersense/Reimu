@@ -87,7 +87,7 @@ static void rightButtonUp() {
         Core::setADS(false);
 }
 
-LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
+static LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode >= 0) {
         std::thread([](WPARAM wParam, LPARAM lParam) {
             KBDLLHOOKSTRUCT* kbd = (KBDLLHOOKSTRUCT*)lParam;
@@ -100,7 +100,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
     return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
 }
 
-LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam) {
+static LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode >= 0) {
         std::thread([](WPARAM wParam, LPARAM lParam) {
             if (wParam == WM_LBUTTONDOWN)
@@ -118,7 +118,7 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam) {
     return CallNextHookEx(hMouseHook, nCode, wParam, lParam);
 }
 
-void HookThread() {
+static void HookThread() {
     hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
     if (hKeyboardHook == NULL) {
         std::cerr << "Failed to install keyboard hook! Error: " << GetLastError() << std::endl;
@@ -145,11 +145,11 @@ void HookThread() {
     UnhookWindowsHookEx(hMouseHook);
 }
 
-void HideConsoleThread() {
+static void HideConsoleThread() {
     FreeConsole();
 }
 
-void adjustPrivileges()
+static void adjustPrivileges()
 {
     HANDLE token;
     TOKEN_PRIVILEGES tp;
