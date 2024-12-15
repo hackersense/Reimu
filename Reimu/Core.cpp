@@ -40,8 +40,7 @@ bool Core::isMouseShown() {
 
     if (GetCursorInfo(&ci))
         return ci.flags & CURSOR_SHOWING;
-    else
-        return true;
+    return true;
 }
 
 bool Core::isColorInRange(const Color& color, const Color& targetColor, int tolerance) {
