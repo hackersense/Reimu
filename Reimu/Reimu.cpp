@@ -6,7 +6,7 @@
 #include "DataReader.h"
 
 #define isKeyPressed(VK) ((GetAsyncKeyState(VK) & 0x8000) != 0)
-#define REIMU_VERSION "v8.5"
+constexpr auto REIMU_VERSION = "v8.5";
 
 HHOOK hKeyboardHook;
 HHOOK hMouseHook;
