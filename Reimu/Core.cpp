@@ -18,7 +18,7 @@ static bool pressingLeftMouse;
 static bool stopDetection;
 
 bool Core::isApexLegendsActive() {
-    wchar_t buffer[2048];
+    wchar_t buffer[1024];
 
     HWND hwnd = GetForegroundWindow();
 
