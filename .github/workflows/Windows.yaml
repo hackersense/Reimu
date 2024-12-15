@@ -26,7 +26,7 @@ jobs:
         shell: cmd
         run: msbuild Reimu.sln /p:Platform=x64 /p:Configuration=${{ matrix.configuration }} ${{ env.toolset }}
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v4
         with:
           name: Reimu - ${{ matrix.configuration }}
           path: x64\${{ matrix.configuration }}\Reimu.exe
