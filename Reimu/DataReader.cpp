@@ -285,7 +285,7 @@ bool DataReader::checkSelectiveFire() {
 }
 
 bool DataReader::isSelectiveFireWeapon(const std::string& weapon_type) {
-    return !weapon_type.empty() && (weapon_type == "Hemlok" || weapon_type == "Flatline" || weapon_type == "R301" || weapon_type == "HavocTurbo");
+    return !weapon_type.empty() && (weapon_type == "Hemlok" || weapon_type == "Flatline" || weapon_type == "R301" || weapon_type == "Prowler" || weapon_type == "ProwlerFullAuto" || weapon_type == "Havoc" || weapon_type == "HavocTurbo");
 }
 
 std::string DataReader::toHex(const Color& color) {

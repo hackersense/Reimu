@@ -178,7 +178,9 @@ void Core::detectWeapon() {
             weapon = "Rampage";
         }
         else if (DataReader::checkWeapon(DataReader::PROWLER_PIXELS)) {
-            weapon = "Prowler";
+            if (!isSingleMode)
+                weapon = "Prowler";
+            weapon = "ProwlerFullAuto";
         }
         else if (DataReader::checkWeapon(DataReader::FLATLINE_PIXELS)) {
             weapon = "Flatline";
@@ -253,7 +255,7 @@ static void highPrecisionSleep(long long nanoseconds) {
 }
 
 void Core::start() {
-    if (isMouseShown() || weapon.empty() || isSingleMode)
+    if (isMouseShown() || weapon.empty() || (isSingleMode && weapon != "ProwlerFullAuto"))
         return;
 
     std::string originalWeapon = weapon;
