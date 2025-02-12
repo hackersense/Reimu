@@ -171,6 +171,9 @@ void Core::detectWeapon() {
         else if (DataReader::checkWeapon(DataReader::SPITFIRE_PIXELS)) {
             weapon = "Spitfire";
         }
+        else if (DataReader::checkWeapon(DataReader::R99_PIXELS)) {
+            weapon = "R99";
+        }
         else weapon = "";
     }
     else if (weaponColorHex == DataReader::HEAVY_WEAPON_COLOR) {
@@ -217,9 +220,6 @@ void Core::detectWeapon() {
             //    weapon = "HavocTurbo";
             //else
             weapon = "HavocTurbo";
-        }
-        else if (DataReader::checkWeapon(DataReader::R99_PIXELS)) {
-            weapon = "R99";
         }
         else weapon = "";
     }
