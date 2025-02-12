@@ -24,6 +24,7 @@ std::vector<int> DataReader::ALTERNATOR_PIXELS;
 std::vector<int> DataReader::RE45_PIXELS;
 std::vector<int> DataReader::SPITFIRE_PIXELS;
 std::vector<int> DataReader::G7_PIXELS;
+std::vector<int> DataReader::R99_PIXELS;
 // Heavy
 std::vector<int> DataReader::FLATLINE_PIXELS;
 std::vector<int> DataReader::CAR_PIXELS;
@@ -33,12 +34,11 @@ std::vector<int> DataReader::P3030_PIXELS;
 std::vector<int> DataReader::PROWLER_PIXELS;
 // ENERGY
 std::vector<int> DataReader::VOLT_PIXELS;
-std::vector<int> DataReader::HAVOC_PIXELS;
+std::vector<int> DataReader::DEVOTION_PIXELS;
 std::vector<int> DataReader::LSTAR_PIXELS;
 std::vector<int> DataReader::NEMESIS_PIXELS;
 // SUPPY DROP
-std::vector<int> DataReader::DEVOTION_PIXELS;
-std::vector<int> DataReader::R99_PIXELS;
+std::vector<int> DataReader::HAVOC_PIXELS;
 // Rampage
 std::vector<int> DataReader::RAMPAGE_AMP_PIXELS;
 // NEMESIS
