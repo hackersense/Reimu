@@ -183,7 +183,7 @@ void Core::detectWeapon() {
         else if (DataReader::checkWeapon(DataReader::PROWLER_PIXELS)) {
             if (!isSingleMode)
                 weapon = "Prowler";
-            weapon = "ProwlerFullAuto";
+            else weapon = "ProwlerFullAuto";
         }
         else if (DataReader::checkWeapon(DataReader::FLATLINE_PIXELS)) {
             weapon = "Flatline";
